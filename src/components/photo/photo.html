@@ -1,0 +1,33 @@
+<ion-content padding text-center>
+  <ion-label *ngIf="photos.length == 0"><h2>{{titles[newType]}}</h2></ion-label>
+  <div *ngIf="photos.length == 0" class="photo-buttons-panel">
+    <button class="photo-button" (click)="takePicture(true)">
+      <i class="icon-icono-camara"></i>
+      <span>Hacer una foto</span>
+    </button>
+    <button class="photo-button" (click)="takePicture(false)">
+      <i class="icon-icono-galeria"></i>
+      <span>Añadir una foto</span>
+    </button>
+  </div>
+  <div *ngIf="photos.length > 0" class="image-viewer">
+    <div class="photo" [ngStyle]="{'background-image' : 'url(' + photos[actPhoto] + ')', 'background-position' : photosCrop[actPhoto].x + 'px ' + photosCrop[actPhoto].y + 'px'}"></div>
+    <ion-fab class="erase-icon" top right>
+      <button color="nicePink" ion-fab (click)="removePhoto()"><i class="icon-icono-eliminar"></i></button>
+    </ion-fab>
+    <ion-fab class="gallery-icon" top left>
+    <button color="white" ion-fab (click)="takePicture(false)"><i class="icon-icono-galeria"></i></button>
+    </ion-fab>
+    <div class="photo-box-panel">
+      <button *ngFor="let i of [0,1,2]" [class.active]="actPhoto == i" class="photo-box" (click)="photos[i] == null ? takePicture(true) : viewPhoto(i)" [id]="'photo_'+i">
+        <i *ngIf="photos[i] == null" class="icon-icono-camara"></i>
+        <img *ngIf="photos[i] != null" [src]="photos[i]" />
+      </button>
+    </div>
+  </div>
+  <footer>
+    <form (ngSubmit)="nextStep($event)">
+      <button ion-button type="submit" [disabled]="photos.length == 0" [class]="'participa-button rounded ' + (canPublish ? 'publish' : 'next')" [innerHTML]="canPublish ? 'PUBLICAR' : 'CONTINUAR'"></button>
+    </form>
+  </footer>
+</ion-content>
