@@ -11,8 +11,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
 import {DataService} from "../service/data.service";
 import {AngularFireModule} from "angularfire2";
+import { AngularFireAuth } from 'angularfire2/auth';
 import {AngularFireDatabaseModule} from "angularfire2/database";
-import {AngularFireAuthModule} from "angularfire2/database";
 
 export const config = {
   apiKey: "AIzaSyAsuvF-EQcXgYlZvJsOmfZ5tZ5cWzdBS8I",
@@ -35,7 +35,6 @@ export const config = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(config,'demo104'),
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,6 +47,7 @@ export const config = {
     StatusBar,
     SplashScreen,
     DataService,
+    AngularFireAuth,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
