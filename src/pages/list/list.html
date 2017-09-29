@@ -9,10 +9,11 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor='let task of tasks | async' (click)="itemTapped($event, item)">
+    <button ion-item *ngFor='let reto of retos | async' (click)="itemTapped($event, item)">
       <div class="item-note" item-right>
-        {{task.descripcion}} , {{task.obj}}
+        {{reto.descripcion}}
       </div>
     </button>
   </ion-list>
+  <button color="danger" (click)="closeSession()">Log out</button>
 </ion-content>

@@ -3,12 +3,21 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Welcome to retos game</ion-title>
+    <ion-title>El buscador</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <button ion-button color="primary" (click)="beginRetos()">Begin Reto</button>
+  <ion-item>
+  <ion-label color="primary">Mail:</ion-label>
+  <ion-input [(ngModel)]="mail" placeholder="Mail"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label color="primary">Contraseña</ion-label>
+  <ion-input type="password" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
+</ion-item>
+  <button ion-button color="primary" (click)="beginRetos()">Entrar</button>
 
 </ion-content>

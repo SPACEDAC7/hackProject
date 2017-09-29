@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {ListPage} from "../list/list";
+import { FirebaseListObservable, AngularFireDatabase  } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+
 
 /**
  * Generated class for the HomePage page.
@@ -14,8 +19,14 @@ import {ListPage} from "../list/list";
   templateUrl: 'home.html',
 })
 export class HomePage {
+  public mail: String;
+  public password: String;
+  public db : AngularFireDatabase;
+  user: Observable<firebase.User>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public database: AngularFireDatabase, public afAuth: AngularFireAuth) {
+    this.db = database;
   }
 
   ionViewDidLoad() {
@@ -23,7 +34,17 @@ export class HomePage {
   }
 
   beginRetos(){
+    this.login();
+
     this.navCtrl.setRoot(ListPage);
   }
+
+  login() {
+   this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+ }
+
+ logout() {
+   this.afAuth.auth.signOut();
+ }
 
 }
