@@ -3,17 +3,28 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { ItemDetailsPage } from '../item-details/item-details';
-import {Firebase} from "@ionic-native/firebase";
+import {DataService} from "../../service/data.service";
+import { FirebaseListObservable, AngularFireDatabase  } from 'angularfire2/database';
 
 @Component({
   selector: 'page-list',
-  templateUrl: 'list.html'
+  templateUrl: 'list.html',
+  providers: [DataService]
 })
 export class ListPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private firebase: Firebase) {
+  tasks: FirebaseListObservable<any>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public database: AngularFireDatabase) {
+    this.tasks = this.database.list('/retos');
+    this.tasks.subscribe((data) => {
+      console.log(data);
+    })
+
+
+
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
     'american-football', 'boat', 'bluetooth', 'build'];
 

@@ -9,7 +9,18 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
-import {Firebase} from "@ionic-native/firebase";
+import {DataService} from "../service/data.service";
+import {AngularFireModule} from "angularfire2";
+import {AngularFireDatabaseModule} from "angularfire2/database";
+
+export const config = {
+  apiKey: "AIzaSyAsuvF-EQcXgYlZvJsOmfZ5tZ5cWzdBS8I",
+  authDomain: "el-buscador-54109.firebaseapp.com",
+  databaseURL: "https://el-buscador-54109.firebaseio.com",
+  projectId: "el-buscador-54109",
+  storageBucket: "el-buscador-54109.appspot.com",
+  messagingSenderId: "605369360962"
+};
 
 @NgModule({
   declarations: [
@@ -21,6 +32,8 @@ import {Firebase} from "@ionic-native/firebase";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(config,'demo104'),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -32,8 +45,10 @@ import {Firebase} from "@ionic-native/firebase";
   providers: [
     StatusBar,
     SplashScreen,
-    Firebase,
+    DataService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+
+}

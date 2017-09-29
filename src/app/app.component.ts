@@ -4,6 +4,7 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
+import { DataService } from "../service/data.service";
 
 
 @Component({
@@ -20,8 +21,11 @@ export class MyApp {
     public platform: Platform,
     public menu: MenuController,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public data: DataService
   ) {
+
+    //data.init();
     this.initializeApp();
 
     // set our app's pages
