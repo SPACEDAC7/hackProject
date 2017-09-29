@@ -20,8 +20,8 @@ import * as firebase from 'firebase/app';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  public mail: String;
-  public password: String;
+  public mail: string;
+  public password: string;
   public db : AngularFireDatabase;
   user: Observable<firebase.User>;
 
@@ -36,12 +36,26 @@ export class HomePage {
 
   beginRetos(){
     this.login();
-
-    this.navCtrl.setRoot(ListPage);
+    if(!this.error){
+      this.navCtrl.setRoot(ListPage);
+    }
   }
 
   login() {
-   this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    console.log("Login");
+    console.log(this.mail + " , " + this.password);
+   this.afAuth.auth.signInWithEmailAndPassword(this.mail,this.password).catch(function(error) {
+     // Handle Errors here.
+     let errorCode = error.code;
+     let errorMessage = error.message;
+     if (errorCode === 'auth/wrong-password') {
+       alert('Wrong password.');
+     } else {
+       alert(errorMessage);
+     }
+     console.log(error);
+   });
+  console.log("Login");
  }
 
  logout() {
