@@ -15,7 +15,7 @@ export class GetImagesServiceComponent {
 
   constructor(public app: App, public platform: Platform, public camera: Camera, public navCtrl: NavController,
               public navParams: NavParams, public alertCtrl: AlertController, public events:Events) {
-    super(navCtrl, alertCtrl, events);
+
   }
 
   public croppedCallback(url, crop_x, crop_y, crop_w, crop_h) {
@@ -28,11 +28,6 @@ export class GetImagesServiceComponent {
   }
 
   public takePicture(getPictureFromCamera: boolean) {
-    if (this.photos.length >= this.maxPhotos) {
-      //super.presentAlert('Añadir foto', 'Sólo puedes añadir un máximo de ' + this.maxPhotos + ' fotos a esta publicación');
-      return;
-    }
-
     this.checkCameraPermissions();
 
     if (!this.permissions) {

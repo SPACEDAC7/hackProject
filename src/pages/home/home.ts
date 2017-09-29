@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {ListPage} from "../list/list";
 
 /**
  * Generated class for the HomePage page.
@@ -8,7 +9,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -20,6 +20,10 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+  }
+
+  beginRetos(){
+    this.navCtrl.setRoot(ListPage);
   }
 
 }
