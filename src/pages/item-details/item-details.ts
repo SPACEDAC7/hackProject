@@ -4,25 +4,29 @@ import { NavController, NavParams } from 'ionic-angular';
 import {ListPage} from "../list/list";
 import {Camera, CameraOptions } from '@ionic-native/camera';
 
-const options: CameraOptions = {
-  quality: 100,
-  destinationType: this.camera.DestinationType.DATA_URL,
-  encodingType: this.camera.EncodingType.JPEG,
-  mediaType: this.camera.MediaType.PICTURE
-}
+
 @Component({
   selector: 'page-item-details',
   templateUrl: 'item-details.html'
 })
 export class ItemDetailsPage {
+  public camera: any;
+  const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  }
   selectedItem: any;
   public base64Image: string;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera) {
     // If we navigated to this page, we will have an item available as a nav param
+    this.camera = camera;
     this.selectedItem = navParams.get('ite  m');
     var self = this;
+
     /*setTimeout(function() {
          self.navCtrl.setRoot(ListPage);
     }, 2000);*/

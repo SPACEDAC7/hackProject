@@ -13,6 +13,8 @@ import {DataService} from "../service/data.service";
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import {Camera, CameraOptions } from '@ionic-native/camera';
+
 
 
 export const config = {
@@ -51,7 +53,7 @@ export const config = {
     SplashScreen,
     DataService,
     AngularFireAuthModule,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {
