@@ -3,17 +3,24 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My First List</ion-title>
+    <ion-title>Lista de retos</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor='let reto of retos | async' (click)="itemTapped($event, item)">
-      <div class="item-note" item-right>
-        {{reto.descripcion}}
+    <button ion-item *ngFor='let reto of (retos | async) ; let i=index' (click)="itemTapped($event, reto)" [disabled]="i+1 > retoMax.$value">
+
+      <div class="item-note" item-left >
+        <button ion-button round>{{i}}</button>
       </div>
+      <div class="item-note" item-right>
+        {{reto.descripcion}}-- {{retoMax.$value}}
+      </div>
+
     </button>
   </ion-list>
-  <button color="danger" (click)="closeSession()">Log out</button>
+  <ion-footer>
+  <button ion-button full color="danger" (click)="closeSession()">Log out</button>
+</ion-footer>
 </ion-content>

@@ -5,8 +5,8 @@ import {ListPage} from "../list/list";
 import { FirebaseListObservable, AngularFireDatabase  } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-
-
+import {Injectable} from '@angular/core';
+import {DataService} from '../../service/data.service';
 
 /**
  * Generated class for the HomePage page.
@@ -19,44 +19,33 @@ import * as firebase from 'firebase/app';
   selector: 'page-home',
   templateUrl: 'home.html',
 })
+
+@Injectable()
 export class HomePage {
   public mail: string;
   public password: string;
   public db : AngularFireDatabase;
   user: Observable<firebase.User>;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public database: AngularFireDatabase, public afAuth: AngularFireAuth) {
+  constructor(
+    private service: DataService,
+    public navCtrl: NavController, public navParams: NavParams, public database: AngularFireDatabase, public afAuth: AngularFireAuth) {
     this.db = database;
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
   }
 
   beginRetos(){
-    this.login();
-    if(!this.error){
-      this.navCtrl.setRoot(ListPage);
-    }
-  }
+    //Llamamos al metodo del servicio que auntetica
+    this.service.authenticate(this.mail,this.password).then((usuarioAutenticado) => {
+        //Si la autenticación se realiza correctamente cambiamos de página.
+         this.navCtrl.setRoot(ListPage);
+      });
 
-  login() {
-    console.log("Login");
-    console.log(this.mail + " , " + this.password);
-   this.afAuth.auth.signInWithEmailAndPassword(this.mail,this.password).catch(function(error) {
-     // Handle Errors here.
-     let errorCode = error.code;
-     let errorMessage = error.message;
-     if (errorCode === 'auth/wrong-password') {
-       alert('Wrong password.');
-     } else {
-       alert(errorMessage);
-     }
-     console.log(error);
-   });
-  console.log("Login");
- }
+
+  }
 
  logout() {
    this.afAuth.auth.signOut();

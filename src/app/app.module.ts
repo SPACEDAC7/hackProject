@@ -47,7 +47,7 @@ export const config = {
     HomePage
   ],
   providers: [
-    StatusBar,
+        StatusBar,
     SplashScreen,
     DataService,
     AngularFireAuthModule,

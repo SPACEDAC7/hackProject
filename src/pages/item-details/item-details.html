@@ -1,18 +1,14 @@
-<ion-header>
-  <ion-navbar>
-    <button menuToggle *ngIf="!selectedItem">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Item Details</ion-title>
-  </ion-navbar>
-</ion-header>
+
 
 <ion-content>
   <h3 text-center *ngIf="selectedItem">
-    {{selectedItem.title}}
+    Reto: {{selectedItem.$key}}
     <ion-icon [name]="selectedItem.icon"></ion-icon>
   </h3>
   <h4 text-center *ngIf="selectedItem">
-    You navigated here from <b>{{selectedItem.title}}</b>
+     <b>{{selectedItem.descripcion}}</b>
   </h4>
+  <button color="primary" (click)="takePicture()" >Cámara</button>
+  Latest Picture:
+     <img [src]="base64Image" *ngIf="base64Image" />
 </ion-content>

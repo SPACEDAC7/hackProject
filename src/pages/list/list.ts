@@ -7,44 +7,50 @@ import {DataService} from "../../service/data.service";
 import { FirebaseListObservable, AngularFireDatabase  } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {HomePage} from '../home/home';
+import {Injectable} from '@angular/core';
+
 
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html',
-  providers: [DataService]
 })
-export class ListPage {
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
 
+@Injectable()
+export class ListPage {
+
+  items: Array<{title: string, note: string}>;
+  retoMax:FirebaseListObservable<any>;
   retos: FirebaseListObservable<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public database: AngularFireDatabase, public afAuth: AngularFireAuth) {
+  //Los servicios se inicializan en el constructor, el servicio dbService se encarga de la capa intermediaria con la base de datos.
+  constructor(public navCtrl: NavController, public navParams: NavParams, public database: AngularFireDatabase, public afAuth: AngularFireAuth, private dbService: DataService) {
     this.retos = this.database.list('/retos');
     this.retos.subscribe((data) => {
-    //  console.log(data);
+    })
+
+    //RetoMax indica el último reto que ha desbloqueado el usuario
+    this.retoMax = this.database.list('/registro/'+dbService.getUid());
+    this.retoMax.subscribe((data)=>{
+      //REvisar
     })
 
 
-
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
 
     this.items = [];
     for(let i = 1; i < 11; i++) {
       this.items.push({
         title: 'Reto ' + i,
-        note: 'Este es el reto ' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+        note: 'Este es el reto ' + i
       });
     }
   }
 
-  itemTapped(event, item) {
+  itemTapped(event, reto) {
     this.navCtrl.push(ItemDetailsPage, {
-      item: item
+      item : reto
     });
   }
+
 
   closeSession(){
     this.afAuth.auth.signOut();
